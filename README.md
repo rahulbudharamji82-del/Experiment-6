@@ -1,79 +1,54 @@
-## Welcome to Apache Tomcat!
+Student Registration Java EE Application
+A lightweight, classic Java Servlet-based web application for managing student registrations, utilizing JDBC for MySQL database connectivity.
 
-### What Is It?
+Features
+Student Registration Form: Simple web interface to capture student names and email addresses.
 
-The Apache Tomcat® software is an open source implementation of the Java
-Servlet, JavaServer Pages, Java Expression Language and Java WebSocket
-technologies. The Java Servlet, JavaServer Pages, Java Expression Language and
-Java WebSocket specifications are developed under the
-[Java Community Process](https://jcp.org/en/introduction/overview).
+Servlet Controller: Handles HTTP GET requests to render the form and POST requests to process submissions securely using PreparedStatement to prevent SQL injection.
 
-The Apache Tomcat software is developed in an open and participatory
-environment and released under the
-[Apache License version 2](https://www.apache.org/licenses/). The Apache Tomcat
-project is intended to be a collaboration of the best-of-breed developers from
-around the world. We invite you to participate in this open development
-project. To learn more about getting involved,
-[click here](https://tomcat.apache.org/getinvolved.html) or keep reading.
+Database Integration: Centralized MySQL connection utility (DBConnection) using JDBC.
 
-Apache Tomcat software powers numerous large-scale, mission-critical web
-applications across a diverse range of industries and organizations. Some of
-these users and their stories are listed on the
-[PoweredBy wiki page](https://cwiki.apache.org/confluence/display/TOMCAT/PoweredBy).
+Tech Stack
+Language: Java (JDK 8+)
+Web Technology: Java Servlets (javax.servlet)
+Database: MySQL
+Build / Server Environment: Compatible with standard Servlet containers (e.g., Apache Tomcat)
+Project Structure
+src/
+└── com/
+    ├── controller/
+    │   └── StudentController.java    # Handles HTTP GET & POST requests[cite: 3]
+    └── util/
+        └── DBConnection.java         # Manages MySQL database connections[cite: 1]
+WebContent/ (or webapp/)
+└── index.html                        # Frontend registration form[cite: 2]
 
-Apache Tomcat, Tomcat, Apache, the Apache feather, and the Apache Tomcat
-project logo are trademarks of the Apache Software Foundation.
+Getting Started
+1. Prerequisites
+Java Development Kit (JDK) installed.
+Apache Tomcat (or any compatible Servlet container).
+MySQL Server installed and running.
+2. Database Setup
+Create a database named studentdb and set up the students table:
 
-### Get It
+CREATE DATABASE studentdb;
 
-For every major Tomcat version there is one download page containing
-links to the latest binary and source code downloads, but also
-links for browsing the download directories and archives:
-- [Tomcat 11](https://tomcat.apache.org/download-11.cgi)
-- [Tomcat 10](https://tomcat.apache.org/download-10.cgi)
-- [Tomcat 9](https://tomcat.apache.org/download-90.cgi)
+USE studentdb;
 
-To facilitate choosing the right major Tomcat version one, we have provided a
-[version overview page](https://tomcat.apache.org/whichversion.html).
+CREATE TABLE students (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL
+);
+3. Configuration
+Update your database credentials in src/com/example/util/DBConnection.java if they differ from the defaults:
 
-### Documentation
-
-The documentation available as of the date of this release is
-included in the docs webapp which ships with tomcat. You can access that webapp
-by starting tomcat and visiting <http://localhost:8080/docs/> in your browser.
-The most up-to-date documentation for each version can be found at:
-- [Tomcat 11](https://tomcat.apache.org/tomcat-11.0-doc/)
-- [Tomcat 10](https://tomcat.apache.org/tomcat-10.1-doc/)
-- [Tomcat 9](https://tomcat.apache.org/tomcat-9.0-doc/)
-
-### Installation
-
-Please see [RUNNING.txt](RUNNING.txt) for more info.
-
-### Licensing
-
-Please see [LICENSE](LICENSE) for more info.
-
-### Support and Mailing List Information
-
-* Free community support is available through the
-[tomcat-users](https://tomcat.apache.org/lists.html#tomcat-users) email list and
-a dedicated [IRC channel](https://tomcat.apache.org/irc.html) (#tomcat on
-Freenode).
-
-* If you want freely available support for running Apache Tomcat, please see the
-resources page [here](https://tomcat.apache.org/findhelp.html).
-
-* If you want to be informed about new code releases, bug fixes,
-security fixes, general news and information about Apache Tomcat, please
-subscribe to the
-[tomcat-announce](https://tomcat.apache.org/lists.html#tomcat-announce) email
-list.
-
-* If you have a concrete bug report for Apache Tomcat, please see the
-instructions for reporting a bug
-[here](https://tomcat.apache.org/bugreport.html).
-
-### Contributing
-
-Please see [CONTRIBUTING](CONTRIBUTING.md) for more info.
+private static final String URL = "jdbc:mysql://localhost:3306/studentdb";
+private static final String USER = "root";
+private static final String PASS = "your_password";
+4. Running the Application
+Import the project into your preferred Java IDE (such as Eclipse or IntelliJ IDEA).
+Configure the project facets to include Dynamic Web Module and add the MySQL JDBC driver (mysql-connector-java) to your project's classpath/lib.
+Deploy the project to your Apache Tomcat server.
+Open your browser and navigate to:
+http://localhost:8080/YourProjectName/student
